@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style type="text/css">
+        #habla_window_div {
+            z-index: 5000;
+        }
+
+        #habla_window_div #habla-callout-bubble-anchor,
+        #habla_window_div #habla-callout-bubble-anchor-offline {
+            margin: 0px;
+            padding: 0px;
+            border: 0px;
+        }
+
+        #habla_compressed_div {
+            position: relative;
+        }
+
+        #habla_window_div .olark-callout-bubble-close-button {
+            height: 20px;
+            width: 20px;
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            background: transparent url(https://static.olark.com/images/close.png) top right no-repeat;
+            z-index: 5001
+        }
+
+        #habla_window_div #olark-callout-bubble,
+        #habla_window_div #olark-callout-bubble-offline {
+            position: absolute;
+            cursor: pointer;
+        }
+
+        #habla_window_div #olark-callout-bubble {
+            height: 153px;
+            width: 164px;
+        }
+
+        .olrk-fixed-bottom #olark-callout-bubble {
+            z-index: 5000;
+            position: relative;
+        }
+
+        .olrk-fixed-top #olark-callout-bubble {
+            z-index: 5000;
+            position: relative;
+        }
+
+        #habla_window_div #olark-callout-bubble-offline {
+            height: 153px;
+            width: 164px;
+        }
+
+        .olrk-fixed-bottom #olark-callout-bubble-offline {
+            z-index: 5000;
+            position: relative;
+        }
+
+        .olrk-fixed-top #olark-callout-bubble-offline {
+            z-index: 5000;
+            position: relative;
+        }
+
+        .olrk-fixed-top #olark-callout-bubble {
+            top: 0px;
+        }
+
+        .olrk-fixed-bottom #olark-callout-bubble {
+            bottom: 0px;
+        }
+
+        .olrk-fixed-left #olark-callout-bubble {
+            right: 0px;
+        }
+
+        .olrk-fixed-right #olark-callout-bubble {
+            left: 0px;
+        }
+
+        .olrk-fixed-left .olrk-left-align #olark-callout-bubble {
+            left: 0px;
+        }
+
+        .olrk-fixed-top #olark-callout-bubble-offline {
+            top: 0px;
+        }
+
+        .olrk-fixed-bottom #olark-callout-bubble-offline {
+            bottom: 0px;
+        }
+
+        .olrk-fixed-left #olark-callout-bubble-offline {
+            right: 0px;
+        }
+
+        .olrk-fixed-right #olark-callout-bubble-offline {
+            left: 0px;
+        }
+
+        .olrk-fixed-left .olrk-left-align #olark-callout-bubble-offline {
+            left: 0px;
+        }
+
+        #habla_window_div a:hover {
+            background-color: transparent;
+        }
+
+        #habla_available_div {
+            display: none;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="css/meteor.css">
+    <link rel="stylesheet" type="text/css" href="css/meteor2.css">
+
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+
+    <title>Build Apps with JavaScript | Meteor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="icon" href="/favicon.png" type="image/png">
+    <!--End ToutApp Script -->
+    <style data-olark="true" type="text/css">
+        .olark-key,
+        #hbl_code,
+        #olark-data {
+            display: none !important;
+        }
+    </style>
+    <style data-olark="true" type="text/css">
+        @media print {
+            #habla_beta_container_do_not_rely_on_div_classes_or_names {
+                display: none !important
+            }
+        }
+    </style>
+    <link data-olark="true" rel="stylesheet" href="css/theme.css" type="text/css">
+    <style type="text/css">
+        .nps-fade {
+            opacity: 1;
+            -webkit-transition: opacity 500ms;
+            transition: opacity 500ms
+        }
+
+        .nps-fade-enter,
+        .nps-fade-leave {
+            opacity: 0
+        }
+
+        .nps-slide-enter,
+        .nps-slide-leave {
+            bottom: -600px !important
+        }
+
+        .nps-next {
+            -webkit-transition: height 500ms;
+            transition: height 500ms
+        }
+
+        .nps-next>div {
+            -webkit-transition: top 500ms;
+            transition: top 500ms
+        }
+
+        .nps-next>div>div {
+            -webkit-transition: opacity 500ms;
+            transition: opacity 500ms
+        }
+
+        .nps-expand {
+            max-height: 800px;
+            overflow: hidden;
+            -webkit-transition: max-height 500ms, opacity 500ms;
+            transition: max-height 500ms, opacity 500ms
+        }
+
+        .nps-expand-enter,
+        .nps-expand-leave {
+            max-height: 0px;
+            opacity: 0
+        }
+
+        .nps-Bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+            -webkit-transition: bottom 500ms;
+            transition: bottom 500ms;
+            z-index: 2147483646;
+            padding: 0 20px;
+            max-height: 100vh;
+            overflow: auto
+        }
+
+        .nps-embed .nps-Bar {
+            position: absolute;
+            max-height: 100%
+        }
+
+        .nps-Bar .nps-PoweredBy {
+            position: absolute;
+            bottom: 10px;
+            right: 20px
+        }
+
+        .nps-embed .nps-Bar .nps-PoweredBy {
+            display: none
+        }
+
+        @media (max-width: 700px) {
+            .nps-Bar .nps-PoweredBy {
+                display: none
+            }
+        }
+
+        .nps-Bar .nps-Scale {
+            margin-left: auto;
+            margin-right: auto
+        }
+
+        .nps-Bar .nps-Survey-bounding {
+            max-width: 600px;
+            margin: 20px auto
+        }
+
+        .nps-Bar .nps-Title {
+            font-size: 14px
+        }
+
+        .nps-Dialog {
+            background-color: white;
+            border-width: 2px;
+            border-style: solid;
+            margin: auto;
+            padding: 20px;
+            position: fixed;
+            width: 417px;
+            z-index: 2147483646;
+            -webkit-transition: all 500ms;
+            transition: all 500ms;
+            box-sizing: border-box
+        }
+
+        .nps-embed .nps-Dialog {
+            position: absolute
+        }
+
+        .nps-Dialog--top {
+            top: 20px
+        }
+
+        .nps-Dialog--middle {
+            top: 50%;
+            -webkit-transform: translate(0, -50%);
+            transform: translate(0, -50%)
+        }
+
+        .nps-Dialog--bottom {
+            bottom: 20px
+        }
+
+        .nps-Dialog--left {
+            -webkit-transition: left 500ms;
+            transition: left 500ms;
+            left: 20px
+        }
+
+        .nps-Dialog--left.nps-show-enter,
+        .nps-Dialog--left.nps-show-leave {
+            left: -500px
+        }
+
+        .nps-Dialog--center {
+            left: 0;
+            right: 0
+        }
+
+        .nps-Dialog--center.nps-Dialog--top.nps-show-enter,
+        .nps-Dialog--center.nps-Dialog--top.nps-show-leave {
+            top: -500px
+        }
+
+        .nps-Dialog--center.nps-Dialog--middle {
+            -webkit-transform: translate(0, -50%) scale(1);
+            transform: translate(0, -50%) scale(1)
+        }
+
+        .nps-Dialog--center.nps-Dialog--middle.nps-show-enter,
+        .nps-Dialog--center.nps-Dialog--middle.nps-show-leave {
+            -webkit-transform: translate(0, -50%) scale(0);
+            transform: translate(0, -50%) scale(0)
+        }
+
+        .nps-Dialog--center.nps-Dialog--bottom {
+            bottom: 20px
+        }
+
+        .nps-Dialog--center.nps-Dialog--bottom.nps-show-enter,
+        .nps-Dialog--center.nps-Dialog--bottom.nps-show-leave {
+            bottom: -500px
+        }
+
+        .nps-Dialog--right {
+            right: 20px
+        }
+
+        .nps-Dialog--right.nps-show-enter,
+        .nps-Dialog--right.nps-show-leave {
+            right: -500px
+        }
+
+        .nps-Dialog .nps-Title {
+            margin-right: 20px
+        }
+
+        .nps-Dialog-close {
+            float: right;
+            font-weight: bold;
+            padding: 0;
+            cursor: pointer;
+            background: transparent;
+            border: 0;
+            font-size: 16px;
+            width: 30px;
+            height: 30px;
+            color: white;
+            position: absolute;
+            right: 0;
+            top: 0
+        }
+
+        .nps-Dialog-close:focus {
+            outline: 0
+        }
+
+        .nps-Dialog-FeedbackPoweredBy {
+            position: absolute;
+            bottom: 0;
+            line-height: 30px;
+            left: 0
+        }
+
+        .nps-Feedback {
+            text-align: left
+        }
+
+        .nps-Feedback-reason {
+            margin-top: 10px
+        }
+
+        .nps-Feedback-reason label {
+            display: block;
+            font-weight: normal
+        }
+
+        .nps-Feedback-reason input {
+            margin-right: 8px;
+            margin-left: 4px;
+            position: relative;
+            top: -2px
+        }
+
+        .nps-Feedback-submit {
+            margin-top: 10px;
+            float: right
+        }
+
+        .nps-Panel {
+            border-width: 2px;
+            border-style: solid;
+            background-color: white
+        }
+
+        .nps-Panel {
+            font-size: 16px;
+            color: #333;
+            max-width: 600px;
+            min-width: 375px;
+            margin: 20px auto;
+            padding: 20px
+        }
+
+        @media (max-width: 480px) {
+            .nps-Survey .nps-Panel {
+                border-width: 0;
+                min-width: initial;
+                font-size: 14px;
+                box-shadow: none
+            }
+        }
+
+        .nps-Panel .nps-Survey--powered-by {
+            line-height: 38px
+        }
+
+        .nps-Panel .nps-Title {
+            font-size: 18px
+        }
+
+        .nps-Panel .nps-Rating {
+            margin-bottom: 20px
+        }
+
+        .nps-PoweredBy {
+            font-size: 12px;
+            margin-top: 20px
+        }
+
+        .nps-PoweredBy>a {
+            text-decoration: none;
+            font-weight: bold
+        }
+
+        .nps-Survey {
+            color: #333;
+            font-family: sans-serif;
+            font-weight: normal;
+            font-size: 14px;
+            line-height: 1.42857143
+        }
+
+        .nps-Survey-buttons {
+            float: right;
+            margin-top: 14px
+        }
+
+        .nps-Survey-bounding {
+            position: relative;
+            overflow: hidden
+        }
+
+        .nps-Survey-content {
+            position: relative;
+            top: 0
+        }
+
+        .nps-Title {
+            font-size: 16px
+        }
+
+        .nps-cf:before,
+        .nps-cf:after {
+            content: " ";
+            display: table
+        }
+
+        .nps-cf:after {
+            clear: both
+        }
+
+        .nps-left {
+            text-align: left
+        }
+
+        .nps-center {
+            text-align: center
+        }
+
+        .nps-margin-t20 {
+            margin-top: 20px
+        }
+
+        .nps-Button {
+            display: inline-block;
+            zoom: 1;
+            line-height: normal;
+            white-space: nowrap;
+            vertical-align: baseline;
+            text-align: center;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            font-family: inherit;
+            font-size: 100%;
+            padding: 0.5em 1em;
+            text-decoration: none;
+            border: 0
+        }
+
+        .nps-Button::-moz-focus-inner {
+            padding: 0;
+            border: 0
+        }
+
+        .nps-Button:focus {
+            outline: 0
+        }
+
+        .nps-Button[disabled] {
+            border: none;
+            background-image: none;
+            opacity: 0.40;
+            cursor: default;
+            box-shadow: none
+        }
+
+        .nps-Button--simple {
+            border: 0;
+            cursor: pointer;
+            padding: 10px
+        }
+
+        .nps-Button--icon {
+            width: 30px;
+            height: 30px;
+            padding: 0
+        }
+
+        .nps-Button--simple:focus,
+        .nps-Button--simple:hover {
+            outline: none
+        }
+
+        .nps-Link {
+            padding: 0.5em 1em;
+            text-decoration: none
+        }
+
+        .nps-Textarea {
+            margin-top: 14px;
+            height: 80px;
+            border-width: 2px;
+            border-style: solid;
+            font-size: 14px;
+            padding: 7px 10px;
+            width: 100%;
+            resize: vertical;
+            box-sizing: border-box;
+            -webkit-transition: border-color 300ms, background-color 300ms;
+            transition: border-color 300ms, background-color 300ms
+        }
+
+        .nps-Textarea:focus {
+            outline: 0
+        }
+
+        .nps-Scale {
+            margin-top: 14px;
+            display: inline-block
+        }
+
+        .nps-Scale-values {
+            margin-bottom: 4px;
+            text-align: center
+        }
+
+        .nps-Scale-value {
+            display: inline-block;
+            padding-right: 2px;
+            vertical-align: middle;
+            line-height: 1;
+            font-size: 1.5em
+        }
+
+        .nps-Scale-value:last-of-type {
+            padding-right: 0
+        }
+
+        .nps-Scale-value:hover {
+            cursor: pointer
+        }
+
+        .nps-Scale-button {
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            text-align: center;
+            line-height: 32px;
+            font-size: 12px
+        }
+
+        @media (max-width: 480px) {
+            .nps-Scale-button {
+                width: 22px;
+                height: 22px;
+                line-height: 22px
+            }
+        }
+
+        .nps-small .nps-Scale-button {
+            width: 22px;
+            height: 22px;
+            line-height: 22px
+        }
+
+        .nps-Scale-hint {
+            font-size: 12px;
+            font-style: italic
+        }
+
+        .nps-Scale-hint--unlikely {
+            float: left;
+            padding-right: 10px
+        }
+
+        .nps-Scale-hint--likely {
+            float: right;
+            padding-left: 10px
+        }
+
+        .nps-Survey[dir="rtl"] .nps-Scale-hint--unlikely {
+            float: right
+        }
+
+        .nps-Survey[dir="rtl"] .nps-Scale-hint--likely {
+            float: left
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="wrapper" class="page page-wrap page-home">
+        <div class="overlay" style="display: none;"></div>
+        <div id="page-content-wrapper">
+
+
+
+
+
+            <div class="header-top-menu">
+                <div class="container-header wow fadeInUp checkMenu animated animated" style="visibility: visible; animation-name: all;">
+                    <div class="logo-company">
+                        <a href="/"><img src="https://d14xs1qewsqjcd.cloudfront.net/assets/logo-diff.svg" alt="Meteor Home Page"></a>
+                    </div>
+                    <nav id="primary-menu">
+                        <a id="developers" href="/developers" class="menu-main has-sub-menu" data-letters="Developers">
+                            <span>Developers</span>
+                            <ul class="sub-menu-secondary">
+                                <li><a class="menu-child" href="/install">Install</a></li>
+                                <li><a class="menu-child" href="/tutorials">Tutorials</a></li>
+                                <li><a class="menu-child" href="http://guide.meteor.com/">Guide</a></li>
+                                <li><a class="menu-child" href="http://docs.meteor.com/#/full/">Documentation</a></li>
+                                <li><a class="menu-child" href="https://forums.meteor.com/">Forums</a></li>
+                                <li><a class="menu-child" href="http://meteor.meetup.com/">Meetups</a></li>
+
+                                <!-- <li><a class="menu-child" href="{{pathFor 'articles'}}">Articles</a></li> -->
+                                <!-- <li><a class="menu-child" href="{{pathFor 'speakerKit'}}">Speaker Kit</a></li> -->
+                            </ul>
+                        </a>
+                        <a id="showcase" href="/showcase" class="menu-main" data-letters="Showcase">
+                            <span>Showcase</span>
+                        </a>
+                        <a id="Solutions" href="/solutions" class="menu-main has-sub-menu" data-letters="Solutions">
+                            <span>Solutions</span>
+                            <ul class="sub-menu-secondary">
+                                <li><a class="menu-child" href="/hosting">Meteor Hosting</a></li>
+                                <li><a class="menu-child" href="/developer-support">Developer Support</a></li>
+                                <li><a class="menu-child" href="/pricing">Pricing</a></li>
+                                <li><a class="menu-child" href="/partners">Official Partners</a></li>
+                                <li><a class="menu-child" href="/submit-rfp">Submit RFP</a></li>
+                                <li><a class="menu-child" href="/become-a-partner">Become a Partner</a></li>
+
+
+                            </ul>
+                        </a>
+
+                        <a id="Company" href="/company" class="menu-main has-sub-menu" data-letters="Company">
+                            <span>Company</span>
+                            <ul class="sub-menu-secondary">
+                                <li><a class="menu-child" href="https://blog.meteor.com/">Blog</a></li>
+                                <li><a class="menu-child" href="/careers">Careers</a></li>
+                                <li><a class="menu-child" href="/culture">Culture</a></li>
+                                <li><a class="menu-child" href="/press">Press</a></li>
+
+                            </ul>
+                        </a>
+                    </nav>
+                    <div class="secondary-nav">
+                        <nav>
+
+                            <a id="login" href="#" class="menu-secondary">Login</a>
+                            <a id="register" href="/sign-up" class="menu-secondary">Register</a>
+
+                        </nav>
+                        <div id="login-popup" class="hidden">
+                            <div class="form-login">
+                                <h3>Login</h3>
+                                <form>
+                                    <input type="text" name="username" placeholder="Username / Email">
+                                    <input type="password" name="password" placeholder="Password">
+                                    <span class="error-account"></span>
+                                    <button type="submit" class="action-login btn-primary-meteor hvr-rectangle-out-bg">Login</button>
+                                </form>
+                                <div class="action-form-login">
+                                    <a data-url="resetPassword" href="/reset-password"><i class="icon-icon-next-short"></i><span>Forgot your Password?</span></a>
+                                    <a data-url="signUp" href="/sign-up"><i class="icon-icon-next-short"></i><span>Register</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" class="icon-custom-menu animated fadeInLeft is-closed" data-toggle="offcanvas">
+        <span class="icon-top"></span>
+        <span class="icon-middle"></span>
+        <span class="icon-bottom"></span>
+        </button>
+                    </div>
+
+                </div>
+            </div>
+            <nav class="navbar navbar-inverse" id="menu-Onmobile" role="navigation">
+                <div class="list-menu-mobile">
+                    <nav id="primary-menu">
+                        <a id="developers" href="/developers" class="menu-main has-sub-menu" data-letters="Developers">
+                            <span>Developers</span>
+                            <ul class="sub-menu-secondary">
+                                <li><a class="menu-child" href="/install">Install</a></li>
+                                <li><a class="menu-child" href="/tutorials">Tutorials</a></li>
+                                <li><a class="menu-child" href="http://guide.meteor.com/">Guide</a></li>
+                                <li><a class="menu-child" href="http://docs.meteor.com/#/full/">Documentation</a></li>
+                                <li><a class="menu-child" href="https://forums.meteor.com/">Forums</a></li>
+                                <li><a class="menu-child" href="http://meteor.meetup.com/">Meetups</a></li>
+
+                                <!-- <li><a class="menu-child" href="{{pathFor 'articles'}}">Articles</a></li> -->
+                                <!-- <li><a class="menu-child" href="{{pathFor 'speakerKit'}}">Speaker Kit</a></li> -->
+                            </ul>
+                        </a>
+                        <a id="showcase" href="/showcase" class="menu-main" data-letters="Showcase">
+                            <span>Showcase</span>
+                        </a>
+                        <a id="Solutions" href="/solutions" class="menu-main has-sub-menu" data-letters="Solutions">
+                            <span>Solutions</span>
+                            <ul class="sub-menu-secondary">
+                                <li><a class="menu-child" href="/hosting">Meteor Hosting</a></li>
+                                <li><a class="menu-child" href="/developer-support">Developer Support</a></li>
+                                <li><a class="menu-child" href="/pricing">Pricing</a></li>
+                                <li><a class="menu-child" href="/partners">Official Partners</a></li>
+                                <li><a class="menu-child" href="/submit-rfp">Submit RFP</a></li>
+                                <li><a class="menu-child" href="/become-a-partner">Become a Partner</a></li>
+
+
+                            </ul>
+                        </a>
+
+                        <a id="Company" href="/company" class="menu-main has-sub-menu" data-letters="Company">
+                            <span>Company</span>
+                            <ul class="sub-menu-secondary">
+                                <li><a class="menu-child" href="https://blog.meteor.com/">Blog</a></li>
+                                <li><a class="menu-child" href="/careers">Careers</a></li>
+                                <li><a class="menu-child" href="/culture">Culture</a></li>
+                                <li><a class="menu-child" href="/press">Press</a></li>
+
+                            </ul>
+                        </a>
+                    </nav>
+                </div>
+
+                <a id="login-nav-mobile" href="/sign-in" class="menu-secondary mobile-menu">Login</a>
+                <a id="register" href="/sign-up" class="menu-secondary mobile-menu">Register</a>
+
+            </nav>
+
+
+
+
+
+
+            <div class="install-page">
+                <div class="title-header-page wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+                    <h3>Install</h3>
+                    <span>
+        Current version: 1.4
+      </span>
+                </div>
+                <div class="container">
+                    <div class="lines-page-full"></div>
+                </div>
+                <div class="container install-container">
+                    <span class="des-content-page wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+        Meteor supports OS X, Windows, and Linux, and is simple to install. The command line installer supports Mac
+        OS X 10.7 (Lion) and above, and Linux on x86 and x86_64 architectures. The Windows installer supports Windows 7, Windows 8.1, Windows 10, Windows Server 2008, and Windows Server 2012. <a target="_blank" href="http://docs.meteor.com/changelog.html">View the changelog »</a>
+      </span>
+                    <div class="support-install wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+                        <div class="install-left">
+                            <h3 class="tilte-devlopers border-left">OSX / Linux</h3>
+                            <span class="des-install">Install the latest official Meteor release from your terminal:</span>
+                            <p onmousedown="analytics.track('web.install.click-to-copy');">
+                                <code>curl https://install.meteor.com/ | sh</code>
+                            </p>
+                        </div>
+                        <div class="install-right wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+                            <h3 class="tilte-devlopers border-left">Windows</h3>
+                            <span class="des-install">Simply download and run the official Meteor installer:</span>
+                            <a href="https://install.meteor.com/windows" onclick="analytics.track('web.install.windows');" class="btn-custom hvr-rectangle-out-bg"><i class="icon-icon-next-letter"></i>Download installer</a>
+
+                        </div>
+                    </div>
+                    <div class="lines-page-full"></div>
+                    <div class="whatnew">
+                        <h3 class="tilte-devlopers wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">What's next?</h3>
+                        <span class="des-what-new wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+          Now that you've installed Meteor, check out the tutorial that teaches you how to build a collaborative todo list app while showing you Meteor's most exciting and useful features. You can also read best practices or check out complete documentation.
+        </span>
+
+                        <div class="list-new-install">
+                            <div class="items-developer-page wow fadeInLeft" style="visibility: visible; animation-name: fadeInLeft;">
+                                <div class="left-items">
+                                    <img src="https://d14xs1qewsqjcd.cloudfront.net/assets/icon-install-tutorial.svg">
+                                </div>
+                                <div class="content-items">
+                                    <h3 class="title-items">Tutorials </h3>
+                                    <span>Build a simple app in minutes. Master advanced concepts and techniques</span>
+                                    <a href="/tutorials" class="btn-custom-link"><i class="icon-icon-next-short"></i>Start now</a>
+                                </div>
+                            </div>
+                            <div class="items-developer-page wow fadeInLeft" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInLeft;">
+                                <div class="left-items">
+                                    <img src="https://d14xs1qewsqjcd.cloudfront.net/assets/icon-guide.svg">
+                                </div>
+                                <div class="content-items">
+                                    <h3 class="title-items">Guide</h3>
+                                    <span>Best practices for building production Meteor apps</span>
+                                    <a href="http://guide.meteor.com" class="btn-custom-link"><i class="icon-icon-next-short"></i>Read now</a>
+                                </div>
+                            </div>
+                            <div class="items-developer-page wow fadeInLeft" data-wow-delay="1s" style="visibility: visible; animation-delay: 1s; animation-name: fadeInLeft;">
+                                <div class="left-items">
+                                    <img src="https://d14xs1qewsqjcd.cloudfront.net/assets/icon-install-document.svg">
+                                </div>
+                                <div class="content-items">
+                                    <h3 class="title-items">Documentation</h3>
+                                    <span>Reference documentation to discover everything Meteor has to offer</span>
+                                    <a href="http://docs.meteor.com/" class="btn-custom-link"><i class="icon-icon-next-short"></i>Explore now</a>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer>
+                <div class="container">
+                    <div class="lines-page-full"></div>
+                    <div id="alllist-footer">
+                        <div class="list-footer">
+                            <img src="https://d14xs1qewsqjcd.cloudfront.net/assets/logo-black.svg" alt="Meteor Home Page">
+                            <span class="des"> © 2017 Meteor Development Group Inc.<br><br>Open source downloads supported by <a href="https://www.keycdn.com">KeyCDN</a> and <a href="https://www.maxcdn.com/">MaxCDN</a></span>
+                        </div>
+                        <div class="list-footer">
+                            <a href="/">Home</a>
+                            <a href="https://github.com/meteor/meteor">GitHub</a>
+                            <a href="https://twitter.com/meteorjs">Twitter</a>
+                            <a href="https://www.youtube.com/user/MeteorVideos">YouTube</a>
+                            <a href="https://www.facebook.com/meteorjs/">Facebook</a>
+                        </div>
+                        <div class="list-footer">
+                            <a href="/developers">Developers</a>
+                            <a href="/install">Install</a>
+                            <a href="/tutorials">Tutorials</a>
+                            <a href="http://guide.meteor.com/">Guide</a>
+                            <a href="http://docs.meteor.com/#/basic/">Documentation</a>
+                            <a href="/showcase">Apps Showcase</a>
+                            <a href="https://forums.meteor.com/">Forums</a>
+                            <a href="http://www.meetup.com/topics/meteor/">Meetups</a>
+                            <a href="/meteor-faq">Meteor FAQ</a>
+                            <a href="/speaker-kit">Speaker Kit</a>
+                            <a href="/articles">Articles</a>
+                        </div>
+                        <div class="list-footer">
+                            <a href="/solutions">Solutions</a>
+                            <a href="galaxy">Meteor Hosting</a>
+                            <a href="/partners">Official Partners</a>
+                            <a href="/become-a-partner">Become a Partner</a>
+                            <a href="/submit-rfp">Submit RFP</a>
+                            <a href="/galaxy-faq">Galaxy FAQ</a>
+                            <a href="http://graphql.com">GraphQL</a>
+                            <a href="http://status.meteor.com/">System Status</a>
+                        </div>
+                        <div class="list-footer">
+                            <!-- <h3> About</h3> -->
+                            <a href="/company">Company</a>
+                            <a href="https://blog.meteor.com/">Blog</a>
+                            <a href="/careers">Careers</a>
+                            <a href="/culture">Culture</a>
+                            <a href="/press">Press</a>
+                            <a href="/contact">Contact Us</a>
+                            <a href="/policy">Policies</a>
+                            <a href="http://www.apollodata.com">Apollo Data</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</body>
+
+</html>
